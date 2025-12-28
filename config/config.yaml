@@ -1,0 +1,46 @@
+# config.yaml
+
+# Data parameters
+data:
+  train_file: "/data/250010022/sunxc/workspace/LLM/data/train_100k.jsonl"
+  valid_file: "/data/250010022/sunxc/workspace/LLM/data/valid.jsonl"
+  test_file: "/data/250010022/sunxc/workspace/LLM/data/test.jsonl"
+  max_len: 128
+  batch_size: 256
+  vocab_size: 50000
+  min_word_freq: 5
+
+# Tokenization
+tokenization:
+  chinese_tool: "jieba"  # Options: jieba, hanlp
+  english_tool: "bpe"    # Options: bpe, wordpiece
+
+# Model parameters
+model:
+  type: transformer
+
+  rnn:
+    rnn_type: "GRU" # "GRU" or "LSTM"
+    hidden_size: 512
+    n_layers: 2
+    attention: "additive" # "dot", "multiplicative", "additive"
+
+  transformer:
+    encoder_layers: 6
+    decoder_layers: 6
+    hidden_size: 512
+    num_heads: 8
+    ff_size: 2048
+    dropout: 0.1
+    position_embedding: "absolute"  # Options: absolute, relative
+    normalization: "LayerNorm"  # Options: LayerNorm, RMSNorm
+
+# Training parameters
+training:
+  epochs: 30
+  learning_rate: 0.0001
+  optimizer: "Adam"  # Options: Adam, SGD
+  scheduler: "None"  # Options: None, StepLR, CosineAnnealing
+  warmup_steps: 4000
+  gradient_clip: 1.0
+  teacher_forcing_ratio: 0.0
